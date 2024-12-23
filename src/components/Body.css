@@ -1,0 +1,25 @@
+.Body {
+  background-color: black;
+}
+.HomePage {
+  display: flex;
+  justify-content: space-between;
+}
+.BankImage img {
+  height: 450px;
+  width: 100%;
+}
+.BankImage {
+  margin: 25px;
+}
+.details {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-right: 180px;
+}
+.details video {
+  max-width: 100%; /* Ensures the video doesn't overflow the container */
+  max-height: 100%; /* Ensures the video doesn't overflow the container */
+}
