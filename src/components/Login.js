@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Login.css";
-
+import axios from "axios";
 // Create Input, Button, and Error components to manage styling
 const Input = ({ type, value, onChange, placeholder }) => (
   <input
@@ -31,8 +31,17 @@ function Login() {
       setError("Both fields are required");
       return;
     }
-    setError("");
-    alert("Logged in");
+    const newUser = { username, password };
+
+    axios
+      .post("http://localhost:8081/Login", newUser, { withCredentials: true }) // URL and the data to send
+      .then((response) => {
+        console.log("User added successfully:", response.data);
+        // Handle success (e.g., clear form or show success message)
+      })
+      .catch((error) => {
+        console.error("There was an error adding the user:", error);
+      });
   };
 
   return (
@@ -58,6 +67,10 @@ function Login() {
           </div>
           {error && <Error>{error}</Error>}
           <Button type="submit">Login</Button>
+          <br />
+          <p>
+            Create a new account? <a href="">signup</a>
+          </p>
         </form>
       </div>
     </div>
