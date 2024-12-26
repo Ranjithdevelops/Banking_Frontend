@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import "./Login.css";
-import axios from "axios";
-// Create Input, Button, and Error components to manage styling
+import "./Signup.css";
 const Input = ({ type, value, onChange, placeholder }) => (
   <input
     type={type}
@@ -19,42 +17,30 @@ const Button = ({ type, children }) => (
 );
 
 const Error = ({ children }) => <div className="error">{children}</div>;
-
-function Login() {
-  const [name, setname] = useState("");
+function Signup() {
+  const [username, setusername] = useState("");
   const [password, setPassword] = useState("");
+  const [retypepassword, setretypepassword] = useState("");
   const [error, setError] = useState("");
-
-  const handleSubmit = (e) => {
+  const handlesubmit = (e) => {
     e.preventDefault();
-    if (name === "" || password === "") {
-      setError("Both fields are required");
+    if (username === "" || password === "" || retypepassword === "") {
+      setError("All the fields are required");
       return;
     }
-    const newUser = { name, password };
-
-    axios
-      .post("http://localhost:8081/Login", newUser) // URL and the data to send
-      .then((response) => {
-        console.log("User added successfully:", response.data);
-        // Handle success (e.g., clear form or show success message)
-      })
-      .catch((error) => {
-        console.error("There was an error adding the user:", error);
-      });
+    const newuser = { username, password, retypepassword };
   };
-
   return (
-    <div className="login">
+    <div className="signup">
       <div className="card">
-        <h2>Login</h2>
-        <form onSubmit={handleSubmit}>
+        <h2>Signup</h2>
+        <form onSubmit={handlesubmit}>
           <div>
             <Input
               type="text"
-              value={name}
-              onChange={(e) => setname(e.target.value)}
-              placeholder="name"
+              value={username}
+              onChange={(e) => setusername(e.target.value)}
+              placeholder="username"
             />
           </div>
           <div>
@@ -65,16 +51,23 @@ function Login() {
               placeholder="Password"
             />
           </div>
+          <div>
+            <Input
+              type="password"
+              value={retypepassword}
+              onChange={(e) => setretypepassword(e.target.value)}
+              placeholder="Retype Password"
+            />
+          </div>
           {error && <Error>{error}</Error>}
-          <Button type="submit">Login</Button>
+          <Button type="submit">Signup</Button>
           <br />
           <p>
-            Create a new account? <a href="">signup</a>
+            Already have a account? <a href="">Login</a>
           </p>
         </form>
       </div>
     </div>
   );
 }
-
-export default Login;
+export default Signup;
